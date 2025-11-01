@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>¿Quién es el pájaro? - Aves Urbanas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chicle&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Pantalla de bienvenida -->
+  <section id="pantalla-bienvenida" class="pantalla">
+    <h1>¿Quién es el pájaro?<br><span class="subtitulo">Edición Aves Urbanas</span></h1>
+    <button id="btn-jugar">Jugar</button>
+  </section>
+
+  <!-- Contenedor principal (oculto al inicio) -->
+  <div class="container" id="main-container" style="display:none;">
+    <h1>¿Quién es el pájaro? - <span class="subtitulo-titulo">Aves Urbanas</span></h1>
+
+
+    <!-- Selección de ave -->
+    <div id="seleccion-jugador">
+      <h2>Selecciona tu ave</h2>
+      <div id="tablero-eleccion">...</div>
+      <button id="confirmar-eleccion" disabled>Confirmar selección</button>
+
+    </div>
+
+    <!-- Juego principal -->
+    <section id="juego" style="display:none;">
+      <h2>Turno: <span id="turno-actual">Jugador</span></h2>
+
+      <!-- Contenedor preguntas -->
+      <div id="preguntas-arriba-container" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 10px;">
+        <!-- Preguntas del jugador -->
+        <div id="pregunta-jugador" class="preguntas" style="flex: 1;">
+          <h3>Haz una pregunta:</h3>
+          <div class="preguntas-carrusel-container">
+            <button id="btn-izquierda" class="btn-flecha">&lt;</button>
+            <div id="botones-preguntas" class="preguntas-carrusel"></div>
+            <button id="btn-derecha" class="btn-flecha">&gt;</button>
+          </div>
+        </div>
+
+        <!-- Pregunta de la máquina -->
+        <div id="pregunta-maquina" class="preguntas" style="flex: 1; display:none;">
+          <h3>Pregunta de la máquina:</h3>
+          <div id="pregunta-maquina-texto"></div>
+          <button id="btn-si">Sí</button>
+          <button id="btn-no">No</button>
+        </div>
+      </div>
+
+      <!-- Respuesta de la máquina -->
+      <div id="respuesta-maquina" class="respuesta"></div>
+
+      <!-- Contenedor de tableros en paralelo -->
+      <div class="tableros-container">
+
+        <!-- Tablero del jugador -->
+        <div class="tablero-wrapper jugador" style="position: relative;">
+          <!-- 🟢 Resultado ahora arriba del tablero -->
+          <div id="resultado" class="resultado"></div>
+
+          <h3>Tu tablero</h3>
+          <div id="tablero-jugador" class="tablero"></div>
+        </div>
+
+        <!-- Tablero de la máquina -->
+        <div class="tablero-wrapper maquina">
+          <h3>Tablero de la máquina</h3>
+          <div id="tablero-maquina" class="tablero"></div>
+          <div id="ave-jugador-elegida" class="tarjeta-ave-elegida"></div>
+        </div>
+
+      </div>
+
+      <button id="reiniciar" style="display:none;">🔁 Volver a jugar</button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const pantallaBienvenida = document.getElementById("pantalla-bienvenida");
+    const mainContainer = document.getElementById("main-container");
+    const btnJugar = document.getElementById("btn-jugar");
+    const seleccionJugadorSection = document.getElementById("seleccion-jugador");
+    const juegoSection = document.getElementById("juego");
+
+    btnJugar.addEventListener("click", () => {
+      pantallaBienvenida.style.display = "none";   // Oculto bienvenida
+      mainContainer.style.display = "block";       // Muestro contenedor principal
+      seleccionJugadorSection.style.display = "block";  // Muestro selección
+      juegoSection.style.display = "none";         // Aseguro que juego esté oculto al inicio
+    });
+  </script>
+  <div id="mensaje-mentira" class="mensaje-mentira">
+  ¡Ojo! No puedes mentir. Responde según tu ave secreta.
+</div>
+
+</body>
+</html>
