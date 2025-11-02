@@ -30,3 +30,49 @@ button {
 button:hover:not(:disabled) {
   background-color: #F57311;
 }
+
+/* --- Tablero de elección (seleccionar tu ave) --- */
+#tablero-eleccion {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  max-width: 900px;
+  margin: 20px auto;
+  justify-items: center;
+}
+
+/* --- Cada carta de ave --- */
+.personaje {
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 120px;
+  aspect-ratio: 1 / 1.2;
+}
+
+.personaje:hover {
+  transform: scale(1.05);
+  border-color: #F5BB27;
+}
+
+.personaje img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.nombre-ave {
+  font-weight: 600;
+  font-size: 0.9em;
+  color: #333;
+  text-align: center;
+}
