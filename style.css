@@ -182,6 +182,23 @@ button:hover:not(:disabled) {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
 }
 
+/* Botón jugar */
+#btn-jugar {
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  background-color: #F5BB27;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+#btn-jugar:hover {
+  background-color: #F57311;
+}
+
 #preguntas-arriba-container {
   display: flex;
   justify-content: center;
@@ -299,6 +316,8 @@ button:hover:not(:disabled) {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+
 
 /* --- Respuesta de la máquina ("Sí" o "No") --- */
 #respuesta-maquina {
