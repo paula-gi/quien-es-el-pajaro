@@ -1,4 +1,17 @@
 let aves = [];
+let preguntasPosibles = [
+  { prop: "esPequeno", valor: true, texto: "¿Es pequeño?" },       
+  { prop: "esMarron", valor: true, texto: "¿Es marrón?" },          
+  { prop: "esNegro", valor: true, texto: "¿Es negro?" },            
+  { prop: "tieneColoresLlamativos", valor: true, texto: "¿Tiene colores llamativos?" }, 
+  { prop: "canto", valor: true, texto: "¿Canta?" },                  
+  { prop: "migratoria", valor: true, texto: "¿Es migratoria?" },     
+  { prop: "comeGranos", valor: true, texto: "¿Come granos?" },      
+  { prop: "comeInsectos", valor: true, texto: "¿Come insectos?" },  
+  { prop: "pico", valor: true, texto: "¿Tiene el pico fino?" },             
+  { prop: "vuelo", valor: true, texto: "¿Vuela rápido?" },
+  { prop: "bandadas", valor: true, texto: "¿Suele ir en bandadas?" }    
+];
 
 
 let jugadorSeleccionado = null;
@@ -14,6 +27,7 @@ const tableroJugadorDiv = document.getElementById("tablero-jugador");
 const tableroMaquinaDiv = document.getElementById("tablero-maquina");
 const resultadoDiv = document.getElementById("resultado");
 const aveJugadorElegidaDiv = document.getElementById("ave-jugador-elegida");
+const botonesPreguntasDiv = document.getElementById("botones-preguntas");
 
 
 // Cargar aves desde JSON
@@ -21,7 +35,10 @@ fetch("aves.json")
   .then(res => res.json())
   .then(data => {
     aves = data;
+    tableroJugador = [...aves];
+    tableroMaquina = [...aves];
     cargarEleccion();
+    crearBotonesPreguntas();
   })
   .catch(err => console.error("Error al cargar aves.json:", err));
 
@@ -103,5 +120,16 @@ btnJugar.addEventListener("click", () => {
   mainContainer.style.display = "block";       // Muestra el contenedor principal
   seleccionJugadorSection.style.display = "block";  // Muestra la selección del ave
   juegoSection.style.display = "none";         // Oculta el tablero hasta elegir el ave
-cargarEleccion();
+
 });
+
+function crearBotonesPreguntas() {
+  botonesPreguntasDiv.innerHTML = "";
+  preguntasPosibles.forEach(p => {
+    const btn = document.createElement("button");
+    btn.textContent = p.texto;
+    btn.dataset.prop = p.prop;
+    btn.dataset.valor = p.valor;
+    botonesPreguntasDiv.appendChild(btn);
+  });
+}
