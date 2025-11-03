@@ -152,6 +152,33 @@ button:hover:not(:disabled) {
   color: #52734d;
 }
 
+#seleccion-jugador h2 {
+  font-family: 'Chicle', cursive;
+  font-weight: normal;
+  font-size: 1.5rem;
+  color: #48483d;
+}
+
+#main-container > h1 {
+  font-family: 'Chicle', cursive;
+  color: #2f5233;
+  font-size: 2rem;
+  margin-bottom: 0px;
+}
+
+#juego h2 {
+  display: inline-block;
+  background-color: #f1cb6b;
+  border: 2px solid #2f5233;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.2rem;
+  color: #2f5233;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
 #preguntas-arriba-container {
   display: flex;
   justify-content: center;
@@ -339,3 +366,9 @@ button:hover:not(:disabled) {
 
 #btn-no { background-color: #e74c3c; }
 #btn-no:hover { background-color: #c0392b; transform: scale(1.05); }
+
+.subtitulo-titulo {
+  font-family: 'Chicle', cursive;
+  color: #59c76a;
+  font-size: 0.8em;
+}
