@@ -83,20 +83,7 @@
   </div>
 
   <script src="script.js"></script>
-  <script>
-    const pantallaBienvenida = document.getElementById("pantalla-bienvenida");
-    const mainContainer = document.getElementById("main-container");
-    const btnJugar = document.getElementById("btn-jugar");
-    const seleccionJugadorSection = document.getElementById("seleccion-jugador");
-    const juegoSection = document.getElementById("juego");
 
-    btnJugar.addEventListener("click", () => {
-      pantallaBienvenida.style.display = "none";   // Oculto bienvenida
-      mainContainer.style.display = "block";       // Muestro contenedor principal
-      seleccionJugadorSection.style.display = "block";  // Muestro selección
-      juegoSection.style.display = "none";         // Aseguro que juego esté oculto al inicio
-    });
-  </script>
   <div id="mensaje-mentira" class="mensaje-mentira">
   ¡Ojo! No puedes mentir. Responde según tu ave secreta.
 </div>
