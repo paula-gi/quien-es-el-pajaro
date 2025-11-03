@@ -18,16 +18,35 @@ let jugadorSeleccionado = null;
 let maquinaSeleccionado = null;
 let tableroJugador = [];
 let tableroMaquina = [];
+let avesEliminadasJugador = [];
+let avesEliminadasMaquina = [];
+let turnoJugador = true;
+let preguntaEnCurso = null;
+let preguntasMaquinaHechas = []; // 🔹 historial de preguntas de la máquina
 
+// Elementos del DOM
 const tableroEleccion = document.getElementById("tablero-eleccion");
 const confirmarEleccionBtn = document.getElementById("confirmar-eleccion");
-const seleccionJugadorSection = document.getElementById("seleccion-jugador");
-const juegoSection = document.getElementById("juego");
 const tableroJugadorDiv = document.getElementById("tablero-jugador");
 const tableroMaquinaDiv = document.getElementById("tablero-maquina");
+const preguntaJugadorDiv = document.getElementById("pregunta-jugador");
+const respuestaMaquinaP = document.getElementById("respuesta-maquina");
+const preguntaMaquinaDiv = document.getElementById("pregunta-maquina");
+const preguntaMaquinaTexto = document.getElementById("pregunta-maquina-texto");
+const btnSi = document.getElementById("btn-si");
+const btnNo = document.getElementById("btn-no");
+const turnoActualSpan = document.getElementById("turno-actual");
 const resultadoDiv = document.getElementById("resultado");
-const aveJugadorElegidaDiv = document.getElementById("ave-jugador-elegida");
+const reiniciarBtn = document.getElementById("reiniciar");
 const botonesPreguntasDiv = document.getElementById("botones-preguntas");
+const pantallaBienvenida = document.getElementById("pantalla-bienvenida");
+const btnJugar = document.getElementById("btn-jugar");
+const seleccionJugadorSection = document.getElementById("seleccion-jugador");
+const mainContainer = document.getElementById("main-container");
+const juegoSection = document.getElementById("juego");
+const btnIzquierda = document.getElementById("btn-izquierda");
+const btnDerecha = document.getElementById("btn-derecha");
+const contenedorPreguntas = document.getElementById("botones-preguntas");
 
 
 // Cargar aves desde JSON
@@ -109,10 +128,6 @@ function cargarEleccion() {
 
 confirmarEleccionBtn.addEventListener("click", iniciarJuego);
 
-// --- Pantalla de bienvenida ---
-const pantallaBienvenida = document.getElementById("pantalla-bienvenida");
-const mainContainer = document.getElementById("main-container");
-const btnJugar = document.getElementById("btn-jugar");
 
 // Cuando se hace clic en "Jugar", se muestra la selección de ave
 btnJugar.addEventListener("click", () => {
@@ -133,3 +148,15 @@ function crearBotonesPreguntas() {
     botonesPreguntasDiv.appendChild(btn);
   });
 }
+
+function actualizarTableros() {
+  if (tableroJugadorDiv.children.length === 0) {
+    crearTarjetas(aves, tableroJugadorDiv, () => {}, false);
+  }
+  if (tableroMaquinaDiv.children.length === 0) {
+    crearTarjetas(aves, tableroMaquinaDiv, () => {}, false);
+  }
+  marcarEliminados(tableroJugadorDiv, avesEliminadasJugador);
+  marcarEliminados(tableroMaquinaDiv, avesEliminadasMaquina);
+}
+
