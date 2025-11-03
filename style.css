@@ -247,6 +247,15 @@ button:hover:not(:disabled) {
   cursor: default;
 }
 
+#tablero-maquina .personaje img {
+  display: none;
+}
+
+#tablero-maquina .personaje {
+  background-color: #eee;
+  position: relative;
+}
+
 
 /* En el tablero de la máquina, se marca con una X roja */
 #tablero-maquina .personaje.eliminado::after {
