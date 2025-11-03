@@ -1,5 +1,6 @@
 let aves = [];
 
+
 let jugadorSeleccionado = null;
 let maquinaSeleccionado = null;
 let tableroJugador = [];
@@ -102,4 +103,5 @@ btnJugar.addEventListener("click", () => {
   mainContainer.style.display = "block";       // Muestra el contenedor principal
   seleccionJugadorSection.style.display = "block";  // Muestra la selección del ave
   juegoSection.style.display = "none";         // Oculta el tablero hasta elegir el ave
+cargarEleccion();
 });

@@ -76,3 +76,32 @@ button:hover:not(:disabled) {
   color: #333;
   text-align: center;
 }
+
+#pantalla-bienvenida {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #d4f4dc;
+  border-radius: 12px;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-image: url("img/pajaros.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#pantalla-bienvenida h1 {
+  font-family: 'Chicle', cursive;
+  font-size: 3.5rem;
+  color: #2f5233;
+  margin-bottom: 20px;
+}
+
+#pantalla-bienvenida .subtitulo {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #52734d;
+}
