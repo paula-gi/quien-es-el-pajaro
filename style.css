@@ -77,6 +77,11 @@ button:hover:not(:disabled) {
   text-align: center;
 }
 
+.personaje.seleccionado {
+  border-color: #27ae60;
+  box-shadow: 0 0 10px #27ae60;
+}
+
 #pantalla-bienvenida {
   display: flex;
   flex-direction: column;
