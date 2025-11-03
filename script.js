@@ -149,6 +149,22 @@ function crearBotonesPreguntas() {
   });
 }
 
+
+botonesPreguntasDiv.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON" && turnoJugador && !e.target.disabled) {
+    const prop = e.target.dataset.prop;
+    let valor = e.target.dataset.valor;
+    if (valor === "true") valor = true;
+    if (valor === "false") valor = false;
+
+    e.target.disabled = true;
+    e.target.classList.add("usada");
+
+    jugadorHacePregunta(prop, valor);
+  }
+});
+
+
 function actualizarTableros() {
   if (tableroJugadorDiv.children.length === 0) {
     crearTarjetas(aves, tableroJugadorDiv, () => {}, false);
@@ -160,3 +176,87 @@ function actualizarTableros() {
   marcarEliminados(tableroMaquinaDiv, avesEliminadasMaquina);
 }
 
+function marcarEliminados(contenedor, listaEliminados) {
+  for (let i = 0; i < contenedor.children.length; i++) {
+    const card = contenedor.children[i];
+    const nombreAve = card.querySelector(".nombre-ave").textContent.trim();
+    if (listaEliminados.includes(nombreAve)) {
+      card.classList.add("eliminado");
+    } else {
+      card.classList.remove("eliminado");
+    }
+  }
+}
+
+function filtrarTableroPorRespuesta(tablero, prop, valor, esRespuestaSi) {
+  return tablero.filter(ave => {
+    if (typeof ave[prop] === "boolean") {
+      return esRespuestaSi ? ave[prop] === valor : ave[prop] !== valor;
+    } else {
+      return esRespuestaSi ? ave[prop] === valor : ave[prop] !== valor;
+    }
+  });
+}
+
+function jugadorHacePregunta(prop, valor) {
+  if (!turnoJugador) return;
+
+  const aveMaquina = aves[maquinaSeleccionado];
+  const valorReal = aveMaquina[prop];
+  const esVerdadero =
+    typeof valorReal === "boolean"
+      ? valorReal === (valor === "true" || valor === true)
+      : valorReal === valor;
+
+  respuestaMaquinaP.textContent = esVerdadero ? "Sí" : "No";
+  respuestaMaquinaP.classList.remove("respuesta-si", "respuesta-no");
+  respuestaMaquinaP.classList.add(esVerdadero ? "respuesta-si" : "respuesta-no");
+
+  aves
+    .filter(ave => !avesEliminadasJugador.includes(ave.nombre))
+    .forEach(ave => {
+      const coincide = ave[prop] === valor;
+      const eliminar = esVerdadero ? !coincide : coincide;
+      if (eliminar) {
+        avesEliminadasJugador.push(ave.nombre);
+      }
+    });
+
+  actualizarTableros();
+  comprobarGanador();
+
+  turnoJugador = false;
+  turnoActualSpan.textContent = "Máquina";
+  preguntaJugadorDiv.style.display = "none";
+
+  setTimeout(() => {
+    respuestaMaquinaP.textContent = "";
+    respuestaMaquinaP.classList.remove("respuesta-si", "respuesta-no");
+    preguntaMaquinaDiv.style.display = "block";
+    maquinaPregunta();
+  }, 1000);
+}
+
+// 🔹 Función de la máquina evitando repetir preguntas
+function maquinaPregunta() {
+  const disponibles = preguntasPosibles.filter(p => !preguntasMaquinaHechas.includes(p.prop));
+
+  if (disponibles.length === 0) {
+    preguntaMaquinaTexto.textContent = "La máquina no tiene más preguntas.";
+    btnSi.disabled = true;
+    btnNo.disabled = true;
+    return;
+  }
+
+  const pregunta = disponibles[Math.floor(Math.random() * disponibles.length)];
+  preguntaEnCurso = { prop: pregunta.prop, valor: pregunta.valor };
+  preguntaMaquinaTexto.textContent = pregunta.texto;
+
+  preguntasMaquinaHechas.push(pregunta.prop);
+
+  btnSi.disabled = false;
+  btnNo.disabled = false;
+}
+
+btnSi.addEventListener("click", () => responderMaquina(true));
+btnNo.addEventListener("click", () => responderMaquina(false));
