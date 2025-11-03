@@ -15,6 +15,44 @@ h1, h2, h3 {
   color: #333;
 }
 
+/* Contenedor paralelo para los tableros */
+.tableros-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Tablero jugador más grande */
+.tablero-wrapper.jugador {
+  flex: 2;
+  margin-right: 20px;
+  margin-bottom: 30px;
+}
+
+/* Tablero máquina más pequeño */
+.tablero-wrapper.maquina {
+  flex: 1;
+  max-width: 220px;
+  margin-bottom: 60px;
+}
+
+.tablero-wrapper.maquina .tablero {
+  transform: scale(0.55);
+  transform-origin: top left;
+  gap: 10px;
+}
+
+/* Tablero general */
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
 button {
   margin-top: 0px;
   margin-bottom: 10px;
@@ -81,6 +119,7 @@ button:hover:not(:disabled) {
   border-color: #27ae60;
   box-shadow: 0 0 10px #27ae60;
 }
+
 
 #pantalla-bienvenida {
   display: flex;
@@ -196,4 +235,13 @@ button:hover:not(:disabled) {
 
 .btn-flecha:hover {
   background-color: #F57311;
+}
+
+.tablero-wrapper.maquina h3 {
+  margin-bottom: 5px;
+}
+
+#tablero-maquina {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
 }
