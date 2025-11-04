@@ -77,6 +77,17 @@ function crearTarjetas(array, contenedor, clickHandler, permitirSeleccion = true
   });
 }
 
+function crearBotonesPreguntas() {
+  botonesPreguntasDiv.innerHTML = "";
+  preguntasPosibles.forEach(p => {
+    const btn = document.createElement("button");
+    btn.textContent = p.texto;
+    btn.dataset.prop = p.prop;
+    btn.dataset.valor = p.valor;
+    botonesPreguntasDiv.appendChild(btn);
+  });
+}
+
 function seleccionarJugador(index) {
   if (jugadorSeleccionado !== null) {
     tableroEleccion.children[jugadorSeleccionado].classList.remove("seleccionado");
@@ -138,18 +149,16 @@ btnJugar.addEventListener("click", () => {
 
 });
 
-function crearBotonesPreguntas() {
-  botonesPreguntasDiv.innerHTML = "";
-  preguntasPosibles.forEach(p => {
-    const btn = document.createElement("button");
-    btn.textContent = p.texto;
-    btn.dataset.prop = p.prop;
-    btn.dataset.valor = p.valor;
-    botonesPreguntasDiv.appendChild(btn);
-  });
-}
+btnIzquierda.addEventListener("click", () => {
+  contenedorPreguntas.scrollBy({ left: -150, behavior: "smooth" });
+});
+
+btnDerecha.addEventListener("click", () => {
+  contenedorPreguntas.scrollBy({ left: 150, behavior: "smooth" });
+});
 
 
+// 
 botonesPreguntasDiv.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON" && turnoJugador && !e.target.disabled) {
     const prop = e.target.dataset.prop;
@@ -260,3 +269,35 @@ function maquinaPregunta() {
 
 btnSi.addEventListener("click", () => responderMaquina(true));
 btnNo.addEventListener("click", () => responderMaquina(false));
+
+function responderMaquina(respuestaJugador) {
+  const aveJugador = aves[jugadorSeleccionado];
+  const valorReal = aveJugador[preguntaEnCurso.prop];
+
+  // Determinar si la respuesta es correcta
+  let respuestaCorrecta;
+  if (typeof valorReal === "boolean") {
+    respuestaCorrecta = valorReal === preguntaEnCurso.valor;
+  } else {
+    respuestaCorrecta = valorReal === preguntaEnCurso.valor;
+  }
+
+  aves
+    .filter(ave => !avesEliminadasMaquina.includes(ave.nombre))
+    .forEach(ave => {
+      const coincide = ave[preguntaEnCurso.prop] === preguntaEnCurso.valor;
+      const eliminar = respuestaJugador ? !coincide : coincide;
+      if (eliminar) {
+        avesEliminadasMaquina.push(ave.nombre);
+      }
+    });
+
+  actualizarTableros();
+  comprobarGanador();
+
+  turnoJugador = true;
+  turnoActualSpan.textContent = "Jugador";
+  preguntaJugadorDiv.style.display = "block";
+  preguntaMaquinaDiv.style.display = "none";
+  respuestaMaquinaP.textContent = "";
+}
