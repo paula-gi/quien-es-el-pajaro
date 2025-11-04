@@ -69,6 +69,18 @@ button:hover:not(:disabled) {
   background-color: #F57311;
 }
 
+button:disabled {
+  background-color: #bbb;
+  cursor: default;
+}
+
+button.usada {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
 /* --- Tablero de elección (seleccionar tu ave) --- */
 #tablero-eleccion {
   transform: scale(0.8);
@@ -319,6 +331,7 @@ button:hover:not(:disabled) {
 
 
 
+
 /* --- Respuesta de la máquina ("Sí" o "No") --- */
 #respuesta-maquina {
   display: inline-block;
@@ -389,6 +402,8 @@ button:hover:not(:disabled) {
 
 #btn-no { background-color: #e74c3c; }
 #btn-no:hover { background-color: #c0392b; transform: scale(1.05); }
+
+
 
 .subtitulo-titulo {
   font-family: 'Chicle', cursive;
