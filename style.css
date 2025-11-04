@@ -108,12 +108,13 @@ button.usada {
   padding: 5px;
   cursor: pointer;
   transition: transform 0.2s, border-color 0.2s;
+  aspect-ratio: 1 / 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 120px;
-  aspect-ratio: 1 / 1.2;
+  overflow: visible;
+  user-select: none;
 }
 
 
@@ -477,10 +478,42 @@ button.usada {
 #btn-no { background-color: #e74c3c; }
 #btn-no:hover { background-color: #c0392b; transform: scale(1.05); }
 
-
-
 .subtitulo-titulo {
   font-family: 'Chicle', cursive;
   color: #59c76a;
   font-size: 0.8em;
+}
+
+.respuesta {
+  margin: 15px 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #333;
+}
+
+#tablero-jugador {
+  gap: 10px;
+}
+
+#tablero-jugador .personaje {
+  padding: 4px;
+  border-width: 1px;
+}
+
+#tablero-jugador .personaje img {
+  width: 80px;
+  height: 80px;
+}
+
+#tablero-jugador .nombre-ave {
+  font-size: 0.9em;
+}
+
+#tablero-maquina {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.tablero-wrapper.maquina h3 {
+  margin-bottom: 5px;
 }
