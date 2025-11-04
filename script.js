@@ -22,7 +22,7 @@ let avesEliminadasJugador = [];
 let avesEliminadasMaquina = [];
 let turnoJugador = true;
 let preguntaEnCurso = null;
-let preguntasMaquinaHechas = []; // 🔹 historial de preguntas de la máquina
+let preguntasMaquinaHechas = []; 
 
 // Elementos del DOM
 const tableroEleccion = document.getElementById("tablero-eleccion");
@@ -142,10 +142,10 @@ confirmarEleccionBtn.addEventListener("click", iniciarJuego);
 
 // Cuando se hace clic en "Jugar", se muestra la selección de ave
 btnJugar.addEventListener("click", () => {
-  pantallaBienvenida.style.display = "none";   // Oculta la pantalla inicial
-  mainContainer.style.display = "block";       // Muestra el contenedor principal
-  seleccionJugadorSection.style.display = "block";  // Muestra la selección del ave
-  juegoSection.style.display = "none";         // Oculta el tablero hasta elegir el ave
+  pantallaBienvenida.style.display = "none";   
+  mainContainer.style.display = "block";       
+  seleccionJugadorSection.style.display = "block";  
+  juegoSection.style.display = "none";         
   document.body.classList.remove("no-scroll");
 });
 
@@ -247,7 +247,7 @@ function jugadorHacePregunta(prop, valor) {
   }, 1000);
 }
 
-// 🔹 Función de la máquina evitando repetir preguntas
+// Función de la máquina evitando repetir preguntas
 function maquinaPregunta() {
   const disponibles = preguntasPosibles.filter(p => !preguntasMaquinaHechas.includes(p.prop));
 
@@ -289,7 +289,7 @@ const esMentira = (respuestaJugador !== respuestaCorrecta);
 if (esMentira) {
   // Mostrar mensaje de error y no dejar continuar
   mostrarMensajeMentira();
-  return; // Salimos de la función sin procesar nada
+  return; 
 }
 
 
@@ -358,7 +358,7 @@ reiniciarBtn.addEventListener("click", () => {
   maquinaSeleccionado = null;
   turnoJugador = true;
   preguntaEnCurso = null;
-  preguntasMaquinaHechas = []; // 🔹 reiniciar historial
+  preguntasMaquinaHechas = []; 
   resultadoDiv.textContent = "";
   respuestaMaquinaP.textContent = "";
   reiniciarBtn.style.display = "none";
@@ -384,6 +384,6 @@ function finalizarPartida() {
     // Mostrar mensaje de ganador
     document.getElementById('mensaje-ganador').style.display = 'block';
     
-    // Desactivar preguntas **solo ahora**
+    // Desactivar preguntas 
     document.getElementById('preguntas-arriba-container').classList.add('partida-finalizada');
 }
