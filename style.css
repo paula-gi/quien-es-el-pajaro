@@ -81,6 +81,13 @@ button.usada {
   text-decoration: line-through;
 }
 
+.resultado {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #2f855a;
+  margin: 10px 0;
+}
+
 /* --- Tablero de elección (seleccionar tu ave) --- */
 #tablero-eleccion {
   transform: scale(0.8);
@@ -333,6 +340,20 @@ button.usada {
   position: relative;
 }
 
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+#turno-actual {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  color: #2f5233;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
 .tarjeta-ave-elegida {
   position: absolute;
   bottom: -30px;
@@ -383,7 +404,6 @@ button.usada {
   max-width: 100%;
   overflow-wrap: break-word;
 }
-
 
 
 /* --- Respuesta de la máquina ("Sí" o "No") --- */
