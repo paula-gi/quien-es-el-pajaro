@@ -146,7 +146,7 @@ btnJugar.addEventListener("click", () => {
   mainContainer.style.display = "block";       // Muestra el contenedor principal
   seleccionJugadorSection.style.display = "block";  // Muestra la selección del ave
   juegoSection.style.display = "none";         // Oculta el tablero hasta elegir el ave
-
+  document.body.classList.remove("no-scroll");
 });
 
 btnIzquierda.addEventListener("click", () => {
@@ -157,6 +157,7 @@ btnDerecha.addEventListener("click", () => {
   contenedorPreguntas.scrollBy({ left: 150, behavior: "smooth" });
 });
 
+document.body.classList.add("no-scroll");
 
 // 
 botonesPreguntasDiv.addEventListener("click", (e) => {
@@ -300,4 +301,17 @@ function responderMaquina(respuestaJugador) {
   preguntaJugadorDiv.style.display = "block";
   preguntaMaquinaDiv.style.display = "none";
   respuestaMaquinaP.textContent = "";
+}
+
+function comprobarGanador() {
+  const avesRestantesJugador = tableroJugador.filter(ave => !avesEliminadasJugador.includes(ave.nombre));
+  const avesRestantesMaquina = tableroMaquina.filter(ave => !avesEliminadasMaquina.includes(ave.nombre));
+
+  if (avesRestantesJugador.length === 1) {
+    mostrarMensajeGanador("¡Felicidades! Has adivinado el ave de la máquina: " + avesRestantesJugador[0].nombre);
+    finalizarJuego();
+  } else if (avesRestantesMaquina.length === 1) {
+    mostrarMensajeGanador("La máquina ha adivinado tu ave: " + avesRestantesMaquina[0].nombre);
+    finalizarJuego();
+  }
 }
