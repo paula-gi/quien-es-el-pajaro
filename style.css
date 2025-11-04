@@ -329,6 +329,60 @@ button.usada {
   transform: translate(-50%, -50%);
 }
 
+.tablero-wrapper.maquina {
+  position: relative;
+}
+
+.tarjeta-ave-elegida {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  margin: 0;
+}
+
+.tarjeta-ave-elegida h3 {
+  font-family: 'Chicle', cursive;
+  font-size: 1rem;
+  color: #2f5233;
+  margin: 0;
+}
+
+.tarjeta-ave-elegida .personaje {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px;
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+  background-color: #ffffff;
+  width: 120px;
+  box-sizing: border-box;
+}
+
+.tarjeta-ave-elegida img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.tarjeta-ave-elegida .nombre-ave {
+  margin-top: 4px;
+  font-weight: bold;
+  font-size: 0.85em;
+  text-align: center;
+  color: #333;
+  line-height: 1.1em;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
 
 
 
