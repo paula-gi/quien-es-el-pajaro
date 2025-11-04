@@ -359,14 +359,21 @@ reiniciarBtn.addEventListener("click", () => {
   turnoJugador = true;
   preguntaEnCurso = null;
   preguntasMaquinaHechas = []; 
+
+   // Ocultamos y limpiamos el resultado
   resultadoDiv.textContent = "";
-  respuestaMaquinaP.textContent = "";
+  resultadoDiv.style.display = "none";
+
   reiniciarBtn.style.display = "none";
-  confirmarEleccionBtn.disabled = true;
+
+  // Volvemos a la pantalla de selección
   seleccionJugadorSection.style.display = "block";
   juegoSection.style.display = "none";
+
+  // Cargar tarjetas de nuevo y mantener botón desactivado hasta elegir
   cargarEleccion();
   crearBotonesPreguntas();
+  confirmarEleccionBtn.disabled = true;
 });
 
 function mostrarMensajeMentira() {
