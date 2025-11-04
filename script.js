@@ -283,6 +283,16 @@ function responderMaquina(respuestaJugador) {
     respuestaCorrecta = valorReal === preguntaEnCurso.valor;
   }
 
+  // Verificar si el jugador mintió
+const esMentira = (respuestaJugador !== respuestaCorrecta);
+
+if (esMentira) {
+  // Mostrar mensaje de error y no dejar continuar
+  mostrarMensajeMentira();
+  return; // Salimos de la función sin procesar nada
+}
+
+
   aves
     .filter(ave => !avesEliminadasMaquina.includes(ave.nombre))
     .forEach(ave => {
@@ -314,4 +324,66 @@ function comprobarGanador() {
     mostrarMensajeGanador("La máquina ha adivinado tu ave: " + avesRestantesMaquina[0].nombre);
     finalizarJuego();
   }
+}
+
+function mostrarMensajeGanador(mensaje) {
+  resultadoDiv.textContent = mensaje;
+  resultadoDiv.style.display = "block";
+  resultadoDiv.style.backgroundColor = "#fffae6";
+  resultadoDiv.style.border = "2px solid #f1c40f";
+  resultadoDiv.style.padding = "15px";
+  resultadoDiv.style.borderRadius = "10px";
+  resultadoDiv.style.textAlign = "center";
+  resultadoDiv.style.fontSize = "18px";
+  resultadoDiv.style.marginTop = "10px";
+}
+
+function finalizarJuego() {
+  preguntaJugadorDiv.style.display = "none";
+  preguntaMaquinaDiv.style.display = "none";
+  reiniciarBtn.style.display = "inline-block";
+
+  const botones = botonesPreguntasDiv.querySelectorAll("button");
+  botones.forEach(btn => btn.disabled = true);
+
+  confirmarEleccionBtn.disabled = true;
+}
+
+reiniciarBtn.addEventListener("click", () => {
+  tableroJugador = [...aves];
+  tableroMaquina = [...aves];
+  avesEliminadasJugador = [];
+  avesEliminadasMaquina = [];
+  jugadorSeleccionado = null;
+  maquinaSeleccionado = null;
+  turnoJugador = true;
+  preguntaEnCurso = null;
+  preguntasMaquinaHechas = []; // 🔹 reiniciar historial
+  resultadoDiv.textContent = "";
+  respuestaMaquinaP.textContent = "";
+  reiniciarBtn.style.display = "none";
+  confirmarEleccionBtn.disabled = true;
+  seleccionJugadorSection.style.display = "block";
+  juegoSection.style.display = "none";
+  cargarEleccion();
+  crearBotonesPreguntas();
+});
+
+function mostrarMensajeMentira() {
+  const div = document.getElementById("mensaje-mentira");
+  div.style.display = "block";
+
+  // Ocultar después de 2 segundos
+  setTimeout(() => {
+    div.style.display = "none";
+  }, 2000);
+}
+
+
+function finalizarPartida() {
+    // Mostrar mensaje de ganador
+    document.getElementById('mensaje-ganador').style.display = 'block';
+    
+    // Desactivar preguntas **solo ahora**
+    document.getElementById('preguntas-arriba-container').classList.add('partida-finalizada');
 }
