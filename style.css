@@ -39,7 +39,7 @@ h1, h2, h3 {
 }
 
 .tablero-wrapper.maquina .tablero {
-  transform: scale(0.55);
+  transform: scale(0.6);
   transform-origin: top left;
   gap: 10px;
 }
@@ -138,6 +138,9 @@ button.usada {
   font-size: 0.9em;
   color: #333;
   text-align: center;
+  overflow: visible;
+  text-overflow: unset;
+  width: 100%;
 }
 
 .personaje.seleccionado {
@@ -545,6 +548,22 @@ button.usada {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000;     /* Más alto que todo */
+  z-index: 1000;
+       
 }
+
+/* Asegúrate de que esté al final del archivo para que no lo sobrescriban reglas posteriores */
+.resultado.mensaje-ganador {
+  display: block;             /* para forzar que se vea */
+  background-color: #fffae6;  /* color dorado claro */
+  border: 2px solid #f1c40f;  /* borde dorado */
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 50;                /* por si algo lo solapa */
+}
+
 

@@ -328,14 +328,10 @@ function comprobarGanador() {
 
 function mostrarMensajeGanador(mensaje) {
   resultadoDiv.textContent = mensaje;
+  // mostrar el elemento (igual que antes)
   resultadoDiv.style.display = "block";
-  resultadoDiv.style.backgroundColor = "#fffae6";
-  resultadoDiv.style.border = "2px solid #f1c40f";
-  resultadoDiv.style.padding = "15px";
-  resultadoDiv.style.borderRadius = "10px";
-  resultadoDiv.style.textAlign = "center";
-  resultadoDiv.style.fontSize = "18px";
-  resultadoDiv.style.marginTop = "10px";
+  // añade la clase que contiene los estilos
+  resultadoDiv.classList.add("mensaje-ganador");
 }
 
 function finalizarJuego() {
