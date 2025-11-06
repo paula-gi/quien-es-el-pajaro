@@ -1,18 +1,17 @@
 let aves = [];
 let preguntasPosibles = [
-  { prop: "esPequeno", valor: true, texto: "¿Es pequeño?" },       
-  { prop: "esMarron", valor: true, texto: "¿Es marrón?" },          
-  { prop: "esNegro", valor: true, texto: "¿Es negro?" },            
-  { prop: "tieneColoresLlamativos", valor: true, texto: "¿Tiene colores llamativos?" }, 
-  { prop: "canto", valor: true, texto: "¿Canta?" },                  
-  { prop: "migratoria", valor: true, texto: "¿Es migratoria?" },     
-  { prop: "comeGranos", valor: true, texto: "¿Come granos?" },      
-  { prop: "comeInsectos", valor: true, texto: "¿Come insectos?" },  
-  { prop: "pico", valor: true, texto: "¿Tiene el pico fino?" },             
+  { prop: "esPequeno", valor: true, texto: "¿Es pequeño?" },
+  { prop: "esMarron", valor: true, texto: "¿Es marrón?" },
+  { prop: "esNegro", valor: true, texto: "¿Es negro?" },
+  { prop: "tieneColoresLlamativos", valor: true, texto: "¿Tiene colores llamativos?" },
+  { prop: "canto", valor: true, texto: "¿Canta?" },
+  { prop: "migratoria", valor: true, texto: "¿Es migratoria?" },
+  { prop: "comeGranos", valor: true, texto: "¿Come granos?" },
+  { prop: "comeInsectos", valor: true, texto: "¿Come insectos?" },
+  { prop: "pico", valor: true, texto: "¿Tiene el pico fino?" },
   { prop: "vuelo", valor: true, texto: "¿Vuela rápido?" },
-  { prop: "bandadas", valor: true, texto: "¿Suele ir en bandadas?" }    
+  { prop: "bandadas", valor: true, texto: "¿Suele ir en bandadas?" }
 ];
-
 
 let jugadorSeleccionado = null;
 let maquinaSeleccionado = null;
@@ -22,7 +21,8 @@ let avesEliminadasJugador = [];
 let avesEliminadasMaquina = [];
 let turnoJugador = true;
 let preguntaEnCurso = null;
-let preguntasMaquinaHechas = []; 
+let preguntasMaquinaHechas = [];
+let juegoTerminado = false; // ✅ Nueva variable global
 
 // Elementos del DOM
 const tableroEleccion = document.getElementById("tablero-eleccion");
@@ -47,7 +47,6 @@ const juegoSection = document.getElementById("juego");
 const btnIzquierda = document.getElementById("btn-izquierda");
 const btnDerecha = document.getElementById("btn-derecha");
 const contenedorPreguntas = document.getElementById("botones-preguntas");
-
 
 // Cargar aves desde JSON
 fetch("aves.json")
@@ -139,13 +138,11 @@ function cargarEleccion() {
 
 confirmarEleccionBtn.addEventListener("click", iniciarJuego);
 
-
-// Cuando se hace clic en "Jugar", se muestra la selección de ave
 btnJugar.addEventListener("click", () => {
-  pantallaBienvenida.style.display = "none";   
-  mainContainer.style.display = "block";       
-  seleccionJugadorSection.style.display = "block";  
-  juegoSection.style.display = "none";         
+  pantallaBienvenida.style.display = "none";
+  mainContainer.style.display = "block";
+  seleccionJugadorSection.style.display = "block";
+  juegoSection.style.display = "none";
   document.body.classList.remove("no-scroll");
 });
 
@@ -159,7 +156,7 @@ btnDerecha.addEventListener("click", () => {
 
 document.body.classList.add("no-scroll");
 
-// 
+// Jugador hace pregunta
 botonesPreguntasDiv.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON" && turnoJugador && !e.target.disabled) {
     const prop = e.target.dataset.prop;
@@ -173,7 +170,6 @@ botonesPreguntasDiv.addEventListener("click", (e) => {
     jugadorHacePregunta(prop, valor);
   }
 });
-
 
 function actualizarTableros() {
   if (tableroJugadorDiv.children.length === 0) {
@@ -198,18 +194,8 @@ function marcarEliminados(contenedor, listaEliminados) {
   }
 }
 
-function filtrarTableroPorRespuesta(tablero, prop, valor, esRespuestaSi) {
-  return tablero.filter(ave => {
-    if (typeof ave[prop] === "boolean") {
-      return esRespuestaSi ? ave[prop] === valor : ave[prop] !== valor;
-    } else {
-      return esRespuestaSi ? ave[prop] === valor : ave[prop] !== valor;
-    }
-  });
-}
-
 function jugadorHacePregunta(prop, valor) {
-  if (!turnoJugador) return;
+  if (!turnoJugador || juegoTerminado) return;
 
   const aveMaquina = aves[maquinaSeleccionado];
   const valorReal = aveMaquina[prop];
@@ -227,9 +213,7 @@ function jugadorHacePregunta(prop, valor) {
     .forEach(ave => {
       const coincide = ave[prop] === valor;
       const eliminar = esVerdadero ? !coincide : coincide;
-      if (eliminar) {
-        avesEliminadasJugador.push(ave.nombre);
-      }
+      if (eliminar) avesEliminadasJugador.push(ave.nombre);
     });
 
   actualizarTableros();
@@ -240,6 +224,8 @@ function jugadorHacePregunta(prop, valor) {
   preguntaJugadorDiv.style.display = "none";
 
   setTimeout(() => {
+    if (juegoTerminado) return; // ✅ Evita la pregunta extra
+
     respuestaMaquinaP.textContent = "";
     respuestaMaquinaP.classList.remove("respuesta-si", "respuesta-no");
     preguntaMaquinaDiv.style.display = "block";
@@ -247,7 +233,7 @@ function jugadorHacePregunta(prop, valor) {
   }, 1000);
 }
 
-// Función de la máquina evitando repetir preguntas
+// Máquina hace pregunta
 function maquinaPregunta() {
   const disponibles = preguntasPosibles.filter(p => !preguntasMaquinaHechas.includes(p.prop));
 
@@ -272,35 +258,24 @@ btnSi.addEventListener("click", () => responderMaquina(true));
 btnNo.addEventListener("click", () => responderMaquina(false));
 
 function responderMaquina(respuestaJugador) {
+  if (juegoTerminado) return;
+
   const aveJugador = aves[jugadorSeleccionado];
   const valorReal = aveJugador[preguntaEnCurso.prop];
 
-  // Determinar si la respuesta es correcta
-  let respuestaCorrecta;
-  if (typeof valorReal === "boolean") {
-    respuestaCorrecta = valorReal === preguntaEnCurso.valor;
-  } else {
-    respuestaCorrecta = valorReal === preguntaEnCurso.valor;
+  let respuestaCorrecta = valorReal === preguntaEnCurso.valor;
+  const esMentira = (respuestaJugador !== respuestaCorrecta);
+  if (esMentira) {
+    mostrarMensajeMentira();
+    return;
   }
-
-  // Verificar si el jugador mintió
-const esMentira = (respuestaJugador !== respuestaCorrecta);
-
-if (esMentira) {
-  // Mostrar mensaje de error y no dejar continuar
-  mostrarMensajeMentira();
-  return; 
-}
-
 
   aves
     .filter(ave => !avesEliminadasMaquina.includes(ave.nombre))
     .forEach(ave => {
       const coincide = ave[preguntaEnCurso.prop] === preguntaEnCurso.valor;
       const eliminar = respuestaJugador ? !coincide : coincide;
-      if (eliminar) {
-        avesEliminadasMaquina.push(ave.nombre);
-      }
+      if (eliminar) avesEliminadasMaquina.push(ave.nombre);
     });
 
   actualizarTableros();
@@ -328,24 +303,24 @@ function comprobarGanador() {
 
 function mostrarMensajeGanador(mensaje) {
   resultadoDiv.textContent = mensaje;
-  // mostrar el elemento (igual que antes)
   resultadoDiv.style.display = "block";
-  // añade la clase que contiene los estilos
   resultadoDiv.classList.add("mensaje-ganador");
 }
 
 function finalizarJuego() {
+  juegoTerminado = true;
   preguntaJugadorDiv.style.display = "none";
   preguntaMaquinaDiv.style.display = "none";
   reiniciarBtn.style.display = "inline-block";
 
   const botones = botonesPreguntasDiv.querySelectorAll("button");
   botones.forEach(btn => btn.disabled = true);
-
   confirmarEleccionBtn.disabled = true;
 }
 
 reiniciarBtn.addEventListener("click", () => {
+  juegoTerminado = false;
+
   tableroJugador = [...aves];
   tableroMaquina = [...aves];
   avesEliminadasJugador = [];
@@ -354,39 +329,30 @@ reiniciarBtn.addEventListener("click", () => {
   maquinaSeleccionado = null;
   turnoJugador = true;
   preguntaEnCurso = null;
-  preguntasMaquinaHechas = []; 
+  preguntasMaquinaHechas = [];
 
-   // Ocultamos y limpiamos el resultado
   resultadoDiv.textContent = "";
   resultadoDiv.style.display = "none";
-
   reiniciarBtn.style.display = "none";
 
-  // Volvemos a la pantalla de selección
+  preguntaJugadorDiv.style.display = "block";
+  preguntaMaquinaDiv.style.display = "none";
+
+  crearBotonesPreguntas();
+  const botones = botonesPreguntasDiv.querySelectorAll("button");
+  botones.forEach(btn => btn.disabled = false);
+
+  confirmarEleccionBtn.disabled = true;
   seleccionJugadorSection.style.display = "block";
   juegoSection.style.display = "none";
 
-  // Cargar tarjetas de nuevo y mantener botón desactivado hasta elegir
   cargarEleccion();
-  crearBotonesPreguntas();
-  confirmarEleccionBtn.disabled = true;
 });
 
 function mostrarMensajeMentira() {
   const div = document.getElementById("mensaje-mentira");
   div.style.display = "block";
-
-  // Ocultar después de 2 segundos
   setTimeout(() => {
     div.style.display = "none";
   }, 2000);
-}
-
-
-function finalizarPartida() {
-    // Mostrar mensaje de ganador
-    document.getElementById('mensaje-ganador').style.display = 'block';
-    
-    // Desactivar preguntas 
-    document.getElementById('preguntas-arriba-container').classList.add('partida-finalizada');
 }
