@@ -1,3 +1,4 @@
+/* Estilos generales */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #d4f0c0;
@@ -38,6 +39,7 @@ h1, h2, h3 {
   margin-bottom: 60px;
 }
 
+/* Escala el tablero de la máquina para hacerlo más compacto */
 .tablero-wrapper.maquina .tablero {
   transform: scale(0.6);
   transform-origin: top left;
@@ -53,6 +55,7 @@ h1, h2, h3 {
   margin-top: 15px;
 }
 
+/* Estilo de los botones */
 button {
   margin-top: 0px;
   margin-bottom: 10px;
@@ -65,6 +68,7 @@ button {
   font-weight: bold;
 }
 
+/* Efecto hover de los botones */
 button:hover:not(:disabled) {
   background-color: #F57311;
 }
@@ -74,6 +78,7 @@ button:disabled {
   cursor: default;
 }
 
+/* Botones ya usados (preguntas realizadas) */
 button.usada {
   background-color: #ccc;
   color: #666;
@@ -88,7 +93,7 @@ button.usada {
   margin: 10px 0;
 }
 
-/* --- Tablero de elección (seleccionar tu ave) --- */
+/* Tablero donde el jugador elige su ave */
 #tablero-eleccion {
   transform: scale(0.8);
   transform-origin: top center;
@@ -100,7 +105,7 @@ button.usada {
   justify-items: center;
 }
 
-/* --- Cada carta de ave --- */
+/* Tarjetas de aves */
 .personaje {
   background: white;
   border: 2px solid #ccc;
@@ -117,22 +122,22 @@ button.usada {
   user-select: none;
 }
 
-
-
+/* Efecto al pasar el mouse sobre la carta */
 .personaje:hover {
   transform: scale(1.05);
   border-color: #F5BB27;
 }
 
+/* Imagen de cada ave */
 .personaje img {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 5px;
-  
+  margin-bottom: 5px;  
 }
 
+/* Estilo del nombre del ave */
 .nombre-ave {
   font-weight: 600;
   font-size: 0.9em;
@@ -143,12 +148,13 @@ button.usada {
   width: 100%;
 }
 
+/* Estilo de la tarjeta seleccionada por el jugador */
 .personaje.seleccionado {
   border-color: #27ae60;
   box-shadow: 0 0 10px #27ae60;
 }
 
-
+/* Estilo de la pantalla de bienvenida */
 #pantalla-bienvenida {
   display: flex;
   flex-direction: column;
@@ -165,6 +171,7 @@ button.usada {
   background-position: center;
 }
 
+/* Estilo del título principal de la pantalla de bienvenida */
 #pantalla-bienvenida h1 {
   font-family: 'Chicle', cursive;
   font-size: 3.5rem;
@@ -172,6 +179,7 @@ button.usada {
   margin-bottom: 20px;
 }
 
+/* Estilo del subtítulo debajo del título principal */
 #pantalla-bienvenida .subtitulo {
   font-size: 1.5rem;
   font-style: italic;
@@ -192,6 +200,7 @@ button.usada {
   margin-bottom: 0px;
 }
 
+/* Encabezado del área de juego */
 #juego h2 {
   display: inline-block;
   background-color: #f1cb6b;
@@ -222,6 +231,7 @@ button.usada {
   background-color: #F57311;
 }
 
+/* Estilo del contenedor superior de las preguntas */
 #preguntas-arriba-container {
   display: flex;
   justify-content: center;
@@ -254,6 +264,7 @@ button.usada {
   font-size: 16px;
 }
 
+/* Carrusel de botones de preguntas */
 .preguntas-carrusel-container {
   display: flex;
   align-items: center;
@@ -271,6 +282,7 @@ button.usada {
   scroll-behavior: smooth;
 }
 
+/* Botones dentro del carrusel */
 .preguntas-carrusel button {
   padding: 6px 12px;
   font-size: 13px;
@@ -288,6 +300,7 @@ button.usada {
   transform: scale(1.05);
 }
 
+/* Flechas para moverse entre preguntas */
 .btn-flecha {
   background-color: #F5BB27;
   color: white;
@@ -309,8 +322,7 @@ button.usada {
   background-color: #F57311;
 }
 
-
-/* --- Apariencia cuando se eliminan aves --- */
+/* Apariencia cuando se eliminan aves */
 .personaje.eliminado {
   opacity: 0.3;
   pointer-events: none;
@@ -327,8 +339,7 @@ button.usada {
   position: relative;
 }
 
-
-/* En el tablero de la máquina, se marca con una X roja */
+/* En el tablero de la máquina, se muestra una X en las aves eliminadas */
 #tablero-maquina .personaje.eliminado::after {
   content: "✖";
   color: red;
@@ -357,7 +368,7 @@ button.usada {
   letter-spacing: 1px;
 }
 
-
+/* Tarjeta del ave elegida */
 .tarjeta-ave-elegida {
   position: absolute;
   bottom: -30px;
@@ -409,8 +420,7 @@ button.usada {
   overflow-wrap: break-word;
 }
 
-
-/* --- Respuesta de la máquina ("Sí" o "No") --- */
+/* Respuesta de la máquina ("Sí" o "No") */
 #respuesta-maquina {
   display: inline-block;
   padding: 10px 20px;
@@ -441,13 +451,14 @@ button.usada {
   box-shadow: 0 0 8px rgba(192, 57, 43, 0.5);
 }
 
-/* --- Pregunta de la máquina (recuadro verde + botones Sí/No) --- */
+/* Estilo de la pregunta de la máquina */
 #pregunta-maquina {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+  
 }
 
 #pregunta-maquina-texto {
@@ -460,7 +471,7 @@ button.usada {
   min-width: 200px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   margin-bottom: 8px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 #pregunta-maquina button {
@@ -521,7 +532,7 @@ button.usada {
   margin-bottom: 5px;
 }
 
-/* Mensaje de mentira */
+/* Mensaje cuando el jugador miente */
 .mensaje-mentira {
   display: none;
   position: fixed;
@@ -540,11 +551,12 @@ button.usada {
 }
 
 .partida-finalizada {
-  pointer-events: none;  /* Desactiva clics */
-  opacity: 0.3;          /* Opcional: se ve deshabilitado */
+  pointer-events: none;  
+  opacity: 0.3;          
 }
+
 #mensaje-ganador {
-  position: fixed;   /* Siempre encima */
+  position: fixed;  
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -552,18 +564,18 @@ button.usada {
        
 }
 
-/* Asegúrate de que esté al final del archivo para que no lo sobrescriban reglas posteriores */
+/* Mensaje de ganador */
 .resultado.mensaje-ganador {
-  display: block;             /* para forzar que se vea */
-  background-color: #fffae6;  /* color dorado claro */
-  border: 2px solid #f1c40f;  /* borde dorado */
+  display: block;             
+  background-color: #fffae6;  
+  border: 2px solid #f1c40f;  
   padding: 15px;
   border-radius: 10px;
   text-align: center;
   font-size: 18px;
   margin-top: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  z-index: 50;                /* por si algo lo solapa */
+  z-index: 50;                
 }
 
 
