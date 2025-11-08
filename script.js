@@ -1,4 +1,5 @@
 let aves = [];
+// Lista de preguntas que el jugador o la máquina pueden hacer
 let preguntasPosibles = [
   { prop: "esPequeno", valor: true, texto: "¿Es pequeño?" },
   { prop: "esMarron", valor: true, texto: "¿Es marrón?" },
@@ -13,6 +14,7 @@ let preguntasPosibles = [
   { prop: "bandadas", valor: true, texto: "¿Suele ir en bandadas?" }
 ];
 
+// Variables del juego
 let jugadorSeleccionado = null;
 let maquinaSeleccionado = null;
 let tableroJugador = [];
@@ -22,7 +24,7 @@ let avesEliminadasMaquina = [];
 let turnoJugador = true;
 let preguntaEnCurso = null;
 let preguntasMaquinaHechas = [];
-let juegoTerminado = false; // ✅ Nueva variable global
+let juegoTerminado = false; 
 
 // Elementos del DOM
 const tableroEleccion = document.getElementById("tablero-eleccion");
@@ -60,6 +62,7 @@ fetch("aves.json")
   })
   .catch(err => console.error("Error al cargar aves.json:", err));
 
+// Crea tarjetas visuales para cada ave  
 function crearTarjetas(array, contenedor, clickHandler, permitirSeleccion = true) {
   contenedor.innerHTML = "";
   array.forEach((ave, index) => {
@@ -76,6 +79,7 @@ function crearTarjetas(array, contenedor, clickHandler, permitirSeleccion = true
   });
 }
 
+// Crea los botones de preguntas para el jugador
 function crearBotonesPreguntas() {
   botonesPreguntasDiv.innerHTML = "";
   preguntasPosibles.forEach(p => {
@@ -87,6 +91,7 @@ function crearBotonesPreguntas() {
   });
 }
 
+// El jugador selecciona su ave secreta
 function seleccionarJugador(index) {
   if (jugadorSeleccionado !== null) {
     tableroEleccion.children[jugadorSeleccionado].classList.remove("seleccionado");
@@ -96,11 +101,13 @@ function seleccionarJugador(index) {
   confirmarEleccionBtn.disabled = false;
 }
 
+// La máquina elige un ave al azar
 function seleccionarMaquina() {
   const index = Math.floor(Math.random() * aves.length);
   maquinaSeleccionado = index;
 }
 
+// Inicia el juego
 function iniciarJuego() {
   if (jugadorSeleccionado === null) {
     alert("Selecciona un ave secreta primero.");
@@ -120,6 +127,7 @@ function iniciarJuego() {
   actualizarTableros();
 }
 
+// Muestra el ave elegida por el jugador
 function mostrarAveJugadorElegida() {
   const ave = aves[jugadorSeleccionado];
   const contenedor = document.getElementById("ave-jugador-elegida");
@@ -132,12 +140,13 @@ function mostrarAveJugadorElegida() {
   `;
 }
 
+// Carga la pantalla de elección de aves
 function cargarEleccion() {
   crearTarjetas(aves, tableroEleccion, seleccionarJugador);
 }
 
+// Eventos de botones
 confirmarEleccionBtn.addEventListener("click", iniciarJuego);
-
 btnJugar.addEventListener("click", () => {
   pantallaBienvenida.style.display = "none";
   mainContainer.style.display = "block";
@@ -146,6 +155,7 @@ btnJugar.addEventListener("click", () => {
   document.body.classList.remove("no-scroll");
 });
 
+// Botones para mover la lista de preguntas
 btnIzquierda.addEventListener("click", () => {
   contenedorPreguntas.scrollBy({ left: -150, behavior: "smooth" });
 });
@@ -156,7 +166,7 @@ btnDerecha.addEventListener("click", () => {
 
 document.body.classList.add("no-scroll");
 
-// Jugador hace pregunta
+// El jugador hace una pregunta
 botonesPreguntasDiv.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON" && turnoJugador && !e.target.disabled) {
     const prop = e.target.dataset.prop;
@@ -171,6 +181,7 @@ botonesPreguntasDiv.addEventListener("click", (e) => {
   }
 });
 
+// Actualiza las tarjetas mostrando cuáles aves han sido eliminadas
 function actualizarTableros() {
   if (tableroJugadorDiv.children.length === 0) {
     crearTarjetas(aves, tableroJugadorDiv, () => {}, false);
@@ -182,6 +193,7 @@ function actualizarTableros() {
   marcarEliminados(tableroMaquinaDiv, avesEliminadasMaquina);
 }
 
+// Marca las aves eliminadas visualmente
 function marcarEliminados(contenedor, listaEliminados) {
   for (let i = 0; i < contenedor.children.length; i++) {
     const card = contenedor.children[i];
@@ -194,6 +206,7 @@ function marcarEliminados(contenedor, listaEliminados) {
   }
 }
 
+// Procesa la pregunta del jugador y muestra la respuesta
 function jugadorHacePregunta(prop, valor) {
   if (!turnoJugador || juegoTerminado) return;
 
@@ -208,6 +221,7 @@ function jugadorHacePregunta(prop, valor) {
   respuestaMaquinaP.classList.remove("respuesta-si", "respuesta-no");
   respuestaMaquinaP.classList.add(esVerdadero ? "respuesta-si" : "respuesta-no");
 
+  // Elimina las aves que no coinciden con la respuesta
   aves
     .filter(ave => !avesEliminadasJugador.includes(ave.nombre))
     .forEach(ave => {
@@ -219,6 +233,7 @@ function jugadorHacePregunta(prop, valor) {
   actualizarTableros();
   comprobarGanador();
 
+   // Turno de la máquina
   turnoJugador = false;
   turnoActualSpan.textContent = "Máquina";
   preguntaJugadorDiv.style.display = "none";
@@ -233,7 +248,7 @@ function jugadorHacePregunta(prop, valor) {
   }, 1000);
 }
 
-// Máquina hace pregunta
+// La máquina hace una pregunta aleatoria
 function maquinaPregunta() {
   const disponibles = preguntasPosibles.filter(p => !preguntasMaquinaHechas.includes(p.prop));
 
@@ -247,29 +262,31 @@ function maquinaPregunta() {
   const pregunta = disponibles[Math.floor(Math.random() * disponibles.length)];
   preguntaEnCurso = { prop: pregunta.prop, valor: pregunta.valor };
   preguntaMaquinaTexto.textContent = pregunta.texto;
-
-  preguntasMaquinaHechas.push(pregunta.prop);
-
+  preguntasMaquinaHechas.push(pregunta.prop);  
   btnSi.disabled = false;
   btnNo.disabled = false;
 }
 
+// El jugador responde a la pregunta de la máquina
 btnSi.addEventListener("click", () => responderMaquina(true));
 btnNo.addEventListener("click", () => responderMaquina(false));
 
+// Procesa la respuesta del jugador a la máquina
 function responderMaquina(respuestaJugador) {
   if (juegoTerminado) return;
 
   const aveJugador = aves[jugadorSeleccionado];
   const valorReal = aveJugador[preguntaEnCurso.prop];
-
   let respuestaCorrecta = valorReal === preguntaEnCurso.valor;
+
+  // Si el jugador miente, se muestra un aviso
   const esMentira = (respuestaJugador !== respuestaCorrecta);
   if (esMentira) {
     mostrarMensajeMentira();
     return;
   }
 
+  // Elimina aves de la máquina según la respuesta
   aves
     .filter(ave => !avesEliminadasMaquina.includes(ave.nombre))
     .forEach(ave => {
@@ -281,6 +298,7 @@ function responderMaquina(respuestaJugador) {
   actualizarTableros();
   comprobarGanador();
 
+  // Cambia el turno al jugador
   turnoJugador = true;
   turnoActualSpan.textContent = "Jugador";
   preguntaJugadorDiv.style.display = "block";
@@ -288,6 +306,7 @@ function responderMaquina(respuestaJugador) {
   respuestaMaquinaP.textContent = "";
 }
 
+// Comprueba si alguien ha ganado
 function comprobarGanador() {
   const avesRestantesJugador = tableroJugador.filter(ave => !avesEliminadasJugador.includes(ave.nombre));
   const avesRestantesMaquina = tableroMaquina.filter(ave => !avesEliminadasMaquina.includes(ave.nombre));
@@ -301,12 +320,14 @@ function comprobarGanador() {
   }
 }
 
+// Muestra el mensaje final de victoria
 function mostrarMensajeGanador(mensaje) {
   resultadoDiv.textContent = mensaje;
   resultadoDiv.style.display = "block";
   resultadoDiv.classList.add("mensaje-ganador");
 }
 
+// Finaliza el juego y desactiva botones
 function finalizarJuego() {
   juegoTerminado = true;
   preguntaJugadorDiv.style.display = "none";
@@ -318,6 +339,7 @@ function finalizarJuego() {
   confirmarEleccionBtn.disabled = true;
 }
 
+// Reinicia el juego desde el inicio
 reiniciarBtn.addEventListener("click", () => {
   juegoTerminado = false;
 
@@ -349,6 +371,7 @@ reiniciarBtn.addEventListener("click", () => {
   cargarEleccion();
 });
 
+// Muestra mensaje si el jugador miente
 function mostrarMensajeMentira() {
   const div = document.getElementById("mensaje-mentira");
   div.style.display = "block";
