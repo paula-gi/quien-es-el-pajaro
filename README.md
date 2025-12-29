@@ -29,7 +29,7 @@ El objetivo es **adivinar antes que el oponente cuál es su ave** 🕵️‍♀�
 ## Cómo ver y descargar el proyecto
 
 ### Ver online
-Puedes acceder al proyecto en línea mediante este enlace: https://paula-gi.github.io/polinectar/
+Puedes acceder al proyecto en línea mediante este enlace: https://paula-gi.github.io/quien-es-el-ave/
 
 ### Descargar y usar localmente
 1. Clona el repositorio o descarga el ZIP desde GitHub.
