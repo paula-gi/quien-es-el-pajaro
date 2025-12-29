@@ -579,3 +579,247 @@ button.usada {
 }
 
 
+/* Diseño responsive para pantallas pequeñas */
+/* Pantalla de bienvenida */
+@media (max-width: 600px) {
+  #pantalla-bienvenida {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #d4f4dc;
+}
+
+#pantalla-bienvenida::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("img/pajaros.png");
+  background-size: contain; 
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+#pantalla-bienvenida h1 {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+#pantalla-bienvenida .subtitulo {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+#btn-jugar {
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+}
+
+/* Pantalla de selección del personaje */
+@media (max-width: 600px) {
+
+  html, body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Contenedor de selección */
+  #seleccion-jugador {
+    padding: 24px 10px 30px; 
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 40px;
+  }
+
+  /* Título */
+  #seleccion-jugador h1 {
+    margin-top: 30px;  
+    font-size: 1.2rem; 
+  }
+
+    #seleccion-jugador h2 {
+    margin-top: 8px;
+    font-size: 0.9rem;
+  }  
+
+  #main-container h1 {
+    margin-top: 50px; 
+  }
+
+  #main-container h1 .subtitulo-titulo {
+  display: block;       
+  margin-top: 0;        
+}
+  
+  #tablero-eleccion {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr)); 
+    gap: 5px; 
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 6px; 
+    box-sizing: border-box;
+    transform: none;
+    overflow: visible;
+    margin-bottom: 40px;
+    transform: scale(0.9);
+  }
+
+  /* Nombre de ave más pequeño para que no se salga de la tarjeta */
+  #tablero-eleccion .nombre-ave {
+  font-size: 0.45rem; 
+  line-height: 1;     
+}
+
+  /* Tarjetas */
+  .personaje {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 3px;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .personaje img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  
+}
+
+  .nombre-ave {
+    font-size: 0.55rem;
+  }
+
+  /* Botón confirmar */
+  #btn-confirmar {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    width: 80%;
+  }
+}
+
+/* Pantalla de la partida */
+@media (max-width: 600px) {
+  
+  html, body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  .titulo-tablero {
+    font-family: 'Chicle', cursive;
+    font-size: 0.75rem;
+    font-weight: normal;
+    color: #2f5233;
+    text-align: center;
+    margin: 4px 0;
+  }
+  
+  .tableros-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  .tablero-wrapper.jugador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 15px;
+  }
+
+  #tablero-jugador {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2px;
+    zoom: 0.4;
+    margin: 0 auto;
+  }
+  
+  .tablero-wrapper.maquina {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 0;
+    row-gap: 4px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  #tablero-maquina {
+    grid-column: 1;
+  }
+
+  .tarjeta-ave-elegida {
+    grid-column: 2;
+    position: static;
+    transform: none;
+    align-self: flex-start;
+    margin-left: -190px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .tarjeta-ave-elegida .personaje {
+    width: 70px;
+    aspect-ratio: 1 / 1;
+    padding: 3px;
+    border-radius: 6px;
+    background-color: #fff;
+  }
+
+  .tarjeta-ave-elegida img {
+    width: 90%;
+    max-height: 70%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+
+  .tarjeta-ave-elegida .nombre-ave {
+    font-size: 0.55rem;
+    line-height: 1.1;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+.tarjeta-ave-elegida .titulo-tablero {
+  font-family: 'Chicle', cursive;
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #2f5233;
+}
+
+.tablero-wrapper.maquina .titulo-tablero {
+  grid-column: 1 / -1;
+  text-align: left;
+  margin-left: 2px;
+}
+
+
+
+
+
