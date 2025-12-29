@@ -132,7 +132,7 @@ function mostrarAveJugadorElegida() {
   const ave = aves[jugadorSeleccionado];
   const contenedor = document.getElementById("ave-jugador-elegida");
   contenedor.innerHTML = `
-    <h4>Tu ave secreta:</h4>
+    <h3 class="titulo-tablero">Tu ave secreta</h3>
     <div class="personaje seleccionado">
       <img src="${ave.imagen}" alt="${ave.nombre}" />
       <div class="nombre-ave">${ave.nombre}</div>
