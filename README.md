@@ -19,11 +19,19 @@ El objetivo es **adivinar antes que el oponente cuál es su ave** 🕵️‍♀�
 - `aves.json` → base de datos con información de las aves  
 - `/img` → imágenes utilizadas en el juego  
 
-## 🚀 Cómo ejecutar
-1. Clona este repositorio o descarga los archivos.  
-2. Abre el archivo `index.html` en tu navegador.  
-3. ¡Juega contra la máquina y demuestra quién conoce mejor a las aves! 🐦🔍  
+## 🛠️ Tecnologías utilizadas
 
-## ✨ Autor
-**Paula**
+- **HTML5** – estructura del proyecto  
+- **CSS3** – diseño y responsive  
+- **JavaScript (Vanilla)** – lógica e interacción  
 
+
+## Cómo ver y descargar el proyecto
+
+### Ver online
+Puedes acceder al proyecto en línea mediante este enlace: https://paula-gi.github.io/polinectar/
+
+### Descargar y usar localmente
+1. Clona el repositorio o descarga el ZIP desde GitHub.
+2. Abre la carpeta en **Visual Studio Code**.
+3. Usa la extensión **Live Server** y abre `index.html` con ella para que funcionen todas las imágenes y el JSON.
